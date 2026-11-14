@@ -1,0 +1,619 @@
+/* QR Social
+   Idea: la página es un fondo cobalto y el QR es una calcomanía blanca con una esquina despegada.
+   Tipografía: Archivo variable; el ancho de letra (font-stretch) se ensancha en los títulos. */
+
+:root {
+  --cobalt: #2536d8;
+  --cobalt-deep: #18239b;
+  --sun: #ffd83a;
+  --paper: #ffffff;
+  --ink: #0e1240;
+  --ink-soft: #4a4f7a;
+  --line: #d9dcf3;
+  --danger: #b3261e;
+  --radius: 18px;
+
+  color-scheme: light;
+  font-family: 'Archivo Variable', 'Segoe UI', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--cobalt);
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 3px;
+}
+
+.card :focus-visible {
+  outline-color: var(--cobalt);
+}
+
+/* ---------- Estructura ---------- */
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 16px 64px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0 28px;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+
+.brand {
+  font-weight: 800;
+  font-stretch: 125%;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'intro'
+    'link'
+    'stage'
+    'options';
+}
+
+.intro {
+  grid-area: intro;
+}
+
+.link-card {
+  grid-area: link;
+}
+
+.stage {
+  grid-area: stage;
+  padding-top: 12px;
+}
+
+.options-card {
+  grid-area: options;
+}
+
+@media (min-width: 920px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      'intro stage'
+      'link stage'
+      'options stage';
+    column-gap: 56px;
+    align-items: start;
+  }
+
+  .stage {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
+}
+
+h1 {
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  line-height: 1.05;
+  font-weight: 800;
+  font-stretch: 112%;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.lede {
+  margin-top: 14px;
+  max-width: 46ch;
+  font-size: 1.05rem;
+  color: rgb(255 255 255 / 0.9);
+}
+
+.card {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-stretch: 112%;
+}
+
+/* ---------- Campo del link ---------- */
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.field {
+  display: flex;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.field:focus-within {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 12px 0 0 12px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.field input::placeholder {
+  color: #7a7fa6;
+}
+
+.field input:focus-visible {
+  outline: none;
+}
+
+.field-btn {
+  padding: 0 18px;
+  border: 0;
+  border-left: 2px solid var(--ink);
+  border-radius: 0 11px 11px 0;
+  background: var(--sun);
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.field-btn:hover {
+  background: #ffe36b;
+}
+
+.status {
+  display: grid;
+  gap: 4px;
+  margin-top: 12px;
+  min-height: 1.5em;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.status[data-tone='ok'] {
+  color: var(--ink);
+}
+
+.status[data-tone='error'] {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  vertical-align: -1px;
+}
+
+/* ---------- Controles ---------- */
+
+.control {
+  margin-top: 20px;
+}
+
+.options-card h2 + .control {
+  margin-top: 16px;
+}
+
+.control-title {
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.hint {
+  margin-top: 8px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.note[data-tone='warn'] {
+  background: #fff3c4;
+  color: #5c4300;
+}
+
+.seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.seg label {
+  position: relative;
+}
+
+.seg input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.seg span {
+  display: block;
+  padding: 8px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.12s, color 0.12s;
+}
+
+.seg input:checked + span {
+  background: var(--ink);
+  color: #fff;
+}
+
+.seg input:focus-visible {
+  outline: none;
+}
+
+.seg input:focus-visible + span {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.seg input:disabled {
+  cursor: not-allowed;
+}
+
+/* Bloqueada pero activa (ej. "Máxima" cuando hay logo) se queda legible; solo se atenúan las demás. */
+.seg input:disabled:not(:checked) + span {
+  opacity: 0.5;
+}
+
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.color {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 6px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.color input {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+}
+
+.color input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color input::-webkit-color-swatch {
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+
+.color input::-moz-color-swatch {
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+
+.logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-name {
+  min-width: 0;
+  max-width: 14ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.btn-line {
+  padding: 8px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-line:hover {
+  background: var(--line);
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.check input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--cobalt);
+}
+
+.check small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+/* ---------- La calcomanía ---------- */
+
+.sticker-wrap {
+  position: relative;
+  width: min(100%, 380px);
+  margin-inline: auto;
+  transform: rotate(-2deg);
+  /* drop-shadow sigue la silueta recortada (esquina despegada); box-shadow no */
+  filter: drop-shadow(8px 8px 0 var(--cobalt-deep));
+}
+
+.sticker {
+  padding: 20px 20px 18px;
+  border-radius: 28px;
+  background: var(--paper);
+  color: var(--ink);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 44px), calc(100% - 44px) 100%, 0 100%);
+}
+
+.sticker-fold {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #f0f1ff 20%, #bfc6ff 100%);
+  clip-path: polygon(100% 0, 0 100%, 0 0);
+}
+
+.qr-frame {
+  display: grid;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.qr {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.qr-placeholder {
+  fill: var(--line);
+}
+
+.sticker-title {
+  margin-top: 14px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.sticker-wrap[data-state='empty'] .sticker-title {
+  color: var(--ink-soft);
+}
+
+.sticker-detail {
+  margin-top: 2px;
+  padding-right: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sticker-wrap[data-state='ready'] .sticker {
+    animation: stick 0.28s ease-out;
+  }
+
+  @keyframes stick {
+    from {
+      transform: scale(0.95);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+/* ---------- Descargas ---------- */
+
+.actions {
+  display: grid;
+  gap: 14px;
+  width: min(100%, 380px);
+  margin: 32px auto 0;
+}
+
+.stage .control-title {
+  color: #fff;
+}
+
+.stage .seg span {
+  border-color: #fff;
+  color: #fff;
+}
+
+.stage .seg input:checked + span {
+  background: #fff;
+  color: var(--ink);
+}
+
+.stage .seg input:focus-visible + span {
+  outline-color: var(--sun);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s, background-color 0.12s;
+}
+
+.btn-primary {
+  border-color: var(--ink);
+  background: var(--sun);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--cobalt-deep);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 var(--cobalt-deep);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--cobalt-deep);
+}
+
+.btn-ghost {
+  border-color: #fff;
+  background: transparent;
+  color: #fff;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgb(255 255 255 / 0.16);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* El amarillo atenuado sobre cobalto se ve marrón; mejor un blanco translúcido. */
+.btn-primary:disabled {
+  border-color: rgb(255 255 255 / 0.5);
+  background: rgb(255 255 255 / 0.16);
+  color: #fff;
+  box-shadow: none;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-row .btn {
+  flex: 1 1 140px;
+}
+
+.toast {
+  min-height: 1.5em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.toast[data-tone='error'] {
+  color: #ffd9d6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

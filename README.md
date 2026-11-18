@@ -71,3 +71,4 @@ Si la red tiene parámetros que solo sirven para rastrear, agrégalos en `tracke
 ## Pruebas
 
 `npm test` cubre la validación de links (entradas válidas, rastreadores, ataques tipo `instagram.com@evil.com`), la detección de redes, los colores y los nombres de archivo.
+.

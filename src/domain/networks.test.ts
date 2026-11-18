@@ -8,6 +8,9 @@ describe('detectNetwork', () => {
     expect(detectNetwork('m.facebook.com').id).toBe('facebook')
     expect(detectNetwork('vm.tiktok.com').id).toBe('tiktok')
     expect(detectNetwork('open.spotify.com').id).toBe('spotify')
+    expect(detectNetwork('kick.com').id).toBe('kick')
+    expect(detectNetwork('www.kick.com').id).toBe('kick')
+    expect(detectNetwork('clips.kick.com').id).toBe('kick')
   })
 
   it('reconoce los acortadores y dominios alternos', () => {
@@ -22,6 +25,7 @@ describe('detectNetwork', () => {
     expect(detectNetwork('fakeinstagram.com')).toBe(OTHER_NETWORK)
     expect(detectNetwork('instagram.com.evil.com')).toBe(OTHER_NETWORK)
     expect(detectNetwork('met.me')).toBe(OTHER_NETWORK)
+    expect(detectNetwork('notkick.com')).toBe(OTHER_NETWORK)
   })
 
   it('cualquier otro dominio cuenta como "otro sitio"', () => {

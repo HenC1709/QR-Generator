@@ -32,7 +32,7 @@ export const NETWORKS: readonly Network[] = [
     id: 'kick',
     name: 'Kick',
     hosts: ['kick.com'],
-    color: '#53fc18',
+    color: '#56f01e',
     trackers: [], // Kick no usa query params
   },
   {

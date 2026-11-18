@@ -5,6 +5,8 @@
  *  3. saber qué parámetros del link son solo rastreo en esa red.
  *
  * Cualquier dominio que no esté aquí funciona igual: se trata como "otro sitio".
+ * 
+ *
  */
 export interface Network {
   readonly id: string
@@ -25,6 +27,13 @@ export const NETWORKS: readonly Network[] = [
     hosts: ['tiktok.com'],
     color: '#000000',
     trackers: ['_t', '_r', 'is_from_webapp', 'sender_device', 'sender_web_id'],
+  },
+  {
+    id: 'kick',
+    name: 'Kick',
+    hosts: ['kick.com'],
+    color: '#53fc18',
+    trackers: [], // Kick no usa query params
   },
   {
     id: 'facebook',
